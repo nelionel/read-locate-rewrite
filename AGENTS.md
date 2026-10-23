@@ -156,5 +156,5 @@ Every exercise and proposal run follows the same loop. IDs are `E1`–`E5` for e
   - the Gemma download with a participant's own token;
   - the Claude Code login on a pod;
   - a full `/proposal` run by an agent.
-- **Notebook:** checked only before its path fix. The original ran end to end on CPU on 2026-10-23, and Checkpoint A also ran in a separate dry run. The version with pod paths has not been re-run.
+- **Notebook (2026-10-23, H200 pod, fresh environment, the repo's version with pod paths):** all 30 code cells run. With `USE_SOLUTIONS = True` there are 0 errors; with `False` the exercise cells raise `NotImplementedError`, as designed. Checkpoint A reproduces the released analysis: an SAE probe is selected on 16 tasks and loses on test in 15. Checkpoint B finds all its inputs once the data is in place. Part 2 matches the page (MLP peak on "el", layer 14, 0.478). Checkpoint B's full retraining (`RUN_TRAINING = True`: 11 probes × 113 tasks, resumable) is off by default and was not run.
 - **Open:** there is no LICENSE file yet.

@@ -185,7 +185,7 @@
  "not_yet_verified": [
   "the Gemma download with a participant's own token",
   "Claude Code login on a pod",
-  "the notebook after its path fix"
+  "the notebook's optional full retraining (RUN_TRAINING = True)"
  ],
  "flow": [
   "every team works through notebook/Mech_Interp_Probing_SAEs_Causal_Tracing.ipynb",
@@ -201,7 +201,8 @@
    "python tools/get_replication_data.py notebook",
    "the authors' cleaned_data/ task files (not mirrored)"
   ],
-  "command": "/notebook"
+  "command": "/notebook",
+  "verified": "H200 pod, fresh env, 2026-10-23: 30/30 code cells, 0 errors with reference solutions; Part 2 matches the page"
  },
  "replication_data": {
   "huggingface_dataset": "Ionel2023/read-locate-rewrite-replication",
