@@ -93,6 +93,14 @@ Claude writes the code in `work/P4/`, runs it within the proposal's time budget,
 
 [`proposals/README.md`](proposals/README.md) describes all six.
 
+## Replication results
+
+Every result behind the page (claim ledgers, results, code, and Gemma‑2‑9B layer-20 activations and labels for all 113 probing tasks) is in the public dataset [Ionel2023/read-locate-rewrite-replication](https://huggingface.co/datasets/Ionel2023/read-locate-rewrite-replication). On a pod:
+```bash
+huggingface-cli download Ionel2023/read-locate-rewrite-replication --repo-type dataset --local-dir /workspace/replication --include "*.md" "sae/results/*" "rome/results/*"
+```
+Drop `--include` to get everything (about 10 GB).
+
 ## What is where
 
 ```

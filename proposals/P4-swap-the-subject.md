@@ -27,7 +27,7 @@ The page's run, on the first 200 known facts:
 | Gaussian, 3σ | 3.3% | 24.8 | 6.7 | 16 |
 | Subject swapped | 1.7% | 26.3 | 3.5 | 5 (95% interval 5–17) |
 
-The swap destroys the fact as thoroughly as the noise does, yet the MLP effect at the last subject token halves, and its best estimate moves to the early layers. Where tracing locates a fact depends on how you corrupt it. Single-fact maps are noisy, so expect the 20-fact average to be clearer than the one-fact map.
+The swap destroys the fact as thoroughly as the noise does, yet the MLP effect at the last subject token halves. Its best estimate is window centre 5, but the 95% interval (5–17) includes the noise's 16, so the location is uncertain; the hidden-state and attention sites do not move. How you corrupt changes how much the MLPs appear to matter. Single-fact maps are noisy, so expect the 20-fact average to be clearer than the one-fact map.
 
 ## Pitfalls
 - The replacement must have exactly the same number of tokens, or the positions no longer line up.

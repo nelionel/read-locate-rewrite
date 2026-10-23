@@ -38,7 +38,7 @@ The leak manufactures a validation score of about 0.74 from nothing.
 | parlour | 10.9 |
 | lounge, sofa, bedroom, room, Salon | 0.0 |
 
-The feature tracks a home's sitting room, but not every word for it ("lounge" is silent). It also fires on French *salon* once more French follows. In "salon de coiffure" the peak is at "de", before the phrase has said it means a hair salon. The page's figure shows 55.3 for "Living room" because it comes from a float32 run.
+The feature tracks a home's sitting room, but not every word for it ("lounge" is silent). It also fires on French *salon* once more French follows. In "salon de coiffure" the peak is at "de", before the phrase has said it means a hair salon. The page's figure shows 55.3 for "Living room": the capital L, not the dtype, makes the difference.
 
 ## Exercise 4 · Trace a fact
 `exercises/ex4_trace_a_fact.py` · GPU · about 1 minute · saves `ex4_mlp_trace.png`

@@ -33,11 +33,11 @@ With 100 validation examples, the best of 16,384 pure-noise features shows a val
 
 | K | Validation examples needed |
 |---|---|
-| 10 | about 2,000 |
-| 1,000 | about 8,800 |
+| 10 | about 1,900 |
+| 1,000 | about 8,500 |
 | 100,000 | about 15,700 |
 
-At n = 100 the best of K scores 0.58, 0.68 and 0.75. The cost grows roughly with log K: every extra factor of 10 in candidates buys the winner about the same extra luck.
+At n = 100 the best of K scores 0.59, 0.69 and 0.75. Use at least 1,000 draws: with 50, these estimates scatter by several percent. The cost grows roughly with log K: every extra factor of 10 in candidates buys the winner about the same extra luck.
 
 **Part B:** on task 92 the raw probe wins both ways.
 

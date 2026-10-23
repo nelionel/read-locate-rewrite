@@ -39,4 +39,4 @@ No one-word label fits all of these. A good label names the words and the contex
 
 ## Pitfalls
 - Report the maximum over tokens, and skip `<bos>`, whose activations are huge.
-- bfloat16 and float32 differ by a few units: "living room" scores 52.4 in bf16 and 55.3 in fp32.
+- Capitalisation matters: "living room" scores 52.4 and "Living room" 55.3. bfloat16 and float32 differ by only about 0.1.
