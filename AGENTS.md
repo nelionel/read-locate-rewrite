@@ -71,6 +71,7 @@ Every exercise and proposal run follows the same loop. IDs are `E1`–`E5` for e
 
 - Run from the repo root with the system `python`. There is one GPU; models are in `$HF_HOME` (`/workspace/hf`).
 - Keep one model on the GPU at a time: `del model; torch.cuda.empty_cache()`.
+- On a RunPod network volume, `/workspace` doesn't allow chmod. `git clone` fails there, so the repo lives in `~` instead. Hugging Face downloads into `/workspace/hf` still work. Before the pod stops, copy results from `work/` to `/workspace`.
 - **GPT‑2 XL:** TransformerLens `"gpt2-xl"` for tracing and Hugging Face `"gpt2-xl"` for ROME. fp32, about 7 GB, 48 layers, d_model 1,600, MLP width 6,400.
 - **Gemma‑2‑9B:** `"google/gemma-2-9b"`, loaded with TransformerLens and `dtype="bfloat16"`, about 20 GB. It is gated and needs `HF_TOKEN`. Read `blocks.20.hook_resid_post` and skip `<bos>`.
 - **SAEs (Gemma Scope, `google/gemma-scope-9b-pt-res`):**

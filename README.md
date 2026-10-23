@@ -48,6 +48,8 @@ export HF_TOKEN=hf_...         # your Hugging Face read token
 bash setup.sh                  # add --no-gemma until your Gemma access is approved
 source ~/.bashrc               # later shells keep HF_HOME
 ```
+If `git clone` fails in `/workspace` with *could not set 'core.filemode'*, the pod uses a network volume, which doesn't allow file permissions. Clone into your home folder instead (`cd ~`). `setup.sh` still keeps the models on `/workspace`, but copy anything you want to keep from `work/` to `/workspace` before stopping the pod.
+
 `setup.sh` does the following, and is safe to rerun:
 - installs the Python packages, pinned to the versions the page was run with;
 - clones the authors' ROME code into `third_party/rome`;
