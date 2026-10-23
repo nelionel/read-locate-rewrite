@@ -1,0 +1,9 @@
+# torch comes with the RunPod PyTorch image (2.8 or newer). The rest is pinned to the versions the page was run with.
+transformers==4.51.3
+transformer-lens==2.15.4
+huggingface-hub==0.36.2
+scikit-learn==1.6.1
+matplotlib==3.10.1
+datasets==2.21.0
+pandas
+pyyaml

@@ -1,0 +1,7 @@
+work/*
+!work/.gitkeep
+third_party/
+__pycache__/
+*.pyc
+ex4_mlp_trace.png
+.ipynb_checkpoints/

@@ -1,0 +1,191 @@
+{
+ "workshop": "Read · Locate · Rewrite",
+ "page": "site/index.html",
+ "papers": {
+  "rome": "Meng, Bau, Andonian & Belinkov, Locating and Editing Factual Associations in GPT, NeurIPS 2022",
+  "sae_probing": "Kantamneni, Engels, Rajamanoharan, Tegmark & Nanda, Are Sparse Autoencoders Useful? A Case Study in Sparse Probing, ICML 2025"
+ },
+ "run_from": "repo root",
+ "generated_files": {
+  "exercises/*.py": "build_repo.py from the page source (template_v3.html)",
+  "tools/build_ex1_file.py": "build_repo.py",
+  "site/index.html": "build_site.py",
+  "note": "the build scripts live in the instructor workspace, not in this repo; edit the page source and regenerate"
+ },
+ "exercises": [
+  {
+   "id": 1,
+   "title": "Beat the SAE probe",
+   "chapter": "2 Read",
+   "paper_section": "SAE paper §3.1",
+   "file": "exercises/ex1_beat_the_sae_probe.py",
+   "device": "cpu",
+   "minutes": 1,
+   "inputs": [
+    "data/ex1_92_glue_sst2_layer20.npz",
+    "hf:google/gemma-scope-9b-pt-res/layer_20/width_16k/average_l0_408/params.npz"
+   ],
+   "outputs": "two AUCs printed",
+   "answer": "proposals/exercises.md#exercise-1--beat-the-sae-probe",
+   "proposal": "P1",
+   "verified": "fresh py3.11/torch 2.8 CPU env, 2026-10-23: prints 0.952 and 0.920, as the page says"
+  },
+  {
+   "id": 2,
+   "title": "Find the leak",
+   "chapter": "2 Read",
+   "paper_section": "SAE paper §2.2, Eq. 1, and the authors' code",
+   "file": "exercises/ex2_find_the_leak.py",
+   "device": "cpu",
+   "minutes": 0.1,
+   "inputs": [],
+   "outputs": "four AUCs printed",
+   "answer": "proposals/exercises.md#exercise-2--find-the-leak",
+   "proposal": "P2",
+   "verified": "fresh CPU env, 2026-10-23: prints [0.78, 0.494] and [0.525, 0.499], as the page says"
+  },
+  {
+   "id": 3,
+   "title": "Test a feature's label",
+   "chapter": "2 Read",
+   "paper_section": "SAE paper §4.1, Figure 8",
+   "file": "exercises/ex3_test_a_feature_label.py",
+   "device": "gpu",
+   "gpu_gb": 20,
+   "minutes": 3,
+   "inputs": [
+    "hf:google/gemma-2-9b (gated)",
+    "hf:google/gemma-scope-9b-pt-res/layer_20/width_131k/average_l0_114/params.npz"
+   ],
+   "outputs": "one activation per input printed",
+   "answer": "proposals/exercises.md#exercise-3--test-a-features-label",
+   "proposal": "P3",
+   "verified": "CPU stand-in (cuda->cpu), bf16, 2026-10-23: within 0.2 of the page's GPU values; not yet run on a pod GPU"
+  },
+  {
+   "id": 4,
+   "title": "Trace a fact",
+   "chapter": "3 Locate",
+   "paper_section": "ROME §2, Figure 1",
+   "file": "exercises/ex4_trace_a_fact.py",
+   "device": "gpu",
+   "gpu_gb": 8,
+   "minutes": 1,
+   "inputs": [
+    "hf:gpt2-xl"
+   ],
+   "outputs": "corrupted P(Seattle), the MLP peak, ex4_mlp_trace.png",
+   "answer": "proposals/exercises.md#exercise-4--trace-a-fact",
+   "proposal": "P4",
+   "verified": "CPU stand-in, 2026-10-23: peak at 'le', layer 14, inside the page's plateau (11-20); the noise draw differs between CPU and GPU"
+  },
+  {
+   "id": 5,
+   "title": "Edit a fact and probe its edges",
+   "chapter": "4 Rewrite",
+   "paper_section": "ROME §3, Table 4",
+   "file": "exercises/ex5_edit_a_fact.py",
+   "device": "gpu",
+   "gpu_gb": 8,
+   "minutes": 1,
+   "inputs": [
+    "hf:gpt2-xl",
+    "third_party/rome",
+    "third_party/rome/data/stats/gpt2-xl/wikipedia_stats/transformer.h.17.mlp.c_proj_float32_mom2_100000.npz"
+   ],
+   "outputs": "next word, P(Paris), P(Rome) for three prompts, before and after",
+   "answer": "proposals/exercises.md#exercise-5--edit-a-fact-and-probe-its-edges",
+   "proposal": [
+    "P5",
+    "P6"
+   ],
+   "verified": "CPU stand-in, 2026-10-23: matches the page to 2 decimals, after adding the missing pad token and seed"
+  }
+ ],
+ "proposals": [
+  {
+   "id": "P1",
+   "title": "How many SAE features close the gap?",
+   "chapter": "2 Read",
+   "file": "proposals/P1-sweep-features.md",
+   "starts_from": [
+    "exercises/ex1_beat_the_sae_probe.py"
+   ],
+   "device": "cpu",
+   "budget_minutes": 5,
+   "reference": "computed on CPU for this repo, 2026-10-23"
+  },
+  {
+   "id": "P2",
+   "title": "How much validation data stops you picking noise?",
+   "chapter": "2 Read",
+   "file": "proposals/P2-validation-size.md",
+   "starts_from": [
+    "exercises/ex2_find_the_leak.py",
+    "exercises/ex1_beat_the_sae_probe.py"
+   ],
+   "device": "cpu",
+   "budget_minutes": 10,
+   "reference": "computed on CPU for this repo, 2026-10-23 (part A by normal approximation, checked against direct simulation at K=16,384, n=100)"
+  },
+  {
+   "id": "P3",
+   "title": "Write a label that survives testing",
+   "chapter": "2 Read",
+   "file": "proposals/P3-better-label.md",
+   "starts_from": [
+    "exercises/ex3_test_a_feature_label.py"
+   ],
+   "device": "gpu",
+   "gpu_gb": 20,
+   "budget_minutes": 15,
+   "reference": "Exercise 3's outputs; open-ended"
+  },
+  {
+   "id": "P4",
+   "title": "Corrupt by swapping the subject",
+   "chapter": "3 Locate",
+   "file": "proposals/P4-swap-the-subject.md",
+   "starts_from": [
+    "exercises/ex4_trace_a_fact.py"
+   ],
+   "device": "gpu",
+   "gpu_gb": 8,
+   "budget_minutes": 15,
+   "reference": "the page's replication run on 200 facts"
+  },
+  {
+   "id": "P5",
+   "title": "Does a fact's trace predict where editing it works?",
+   "chapter": "4 Rewrite",
+   "file": "proposals/P5-trace-vs-edit-layer.md",
+   "starts_from": [
+    "exercises/ex4_trace_a_fact.py",
+    "exercises/ex5_edit_a_fact.py"
+   ],
+   "device": "gpu",
+   "gpu_gb": 8,
+   "budget_minutes": 25,
+   "reference": "the page's replication run on 300 facts, and Hase et al. 2023"
+  },
+  {
+   "id": "P6",
+   "title": "Why did one edit break a run of 1,000?",
+   "chapter": "4 Rewrite",
+   "file": "proposals/P6-the-edit-that-broke.md",
+   "starts_from": [
+    "exercises/ex5_edit_a_fact.py"
+   ],
+   "device": "gpu",
+   "gpu_gb": 8,
+   "budget_minutes": 10,
+   "reference": "computed on CPU for this repo, 2026-10-23 (authors' ROME code)"
+  }
+ ],
+ "not_yet_verified": [
+  "a real RunPod GPU pod",
+  "the Gemma download with a participant token",
+  "Claude Code login on a pod",
+  "a full /proposal run by an agent"
+ ]
+}
