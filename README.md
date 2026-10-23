@@ -73,7 +73,9 @@ Every team does the same two steps.
 **Step 1 · The notebook (every team, about an hour).** Open [`notebook/Mech_Interp_Probing_SAEs_Causal_Tracing.ipynb`](notebook/Mech_Interp_Probing_SAEs_Causal_Tracing.ipynb) in the pod's JupyterLab (RunPod: **Connect → Jupyter Lab**) and work through it in order.
 - **Part 1, SAE probing.**
   - Checkpoint A works from the authors' released results, and runs as soon as `setup.sh` has finished.
-  - Checkpoint B retrains the probes. It needs data first (see [Replication results](#replication-results-on-hugging-face)), and its full training is off by default: set `RUN_TRAINING = True` to train 11 probes on each of the 113 tasks. That takes a long time but can resume.
+  - Checkpoint B retrains the probes. It needs data first (see [Replication results](#replication-results-on-hugging-face)), and its full training is off by default. It needs three switches turned on:
+    - `GENERATE_ENCODINGS = True` and `ENCODE_1M = True`, which need the 1M-feature SAE's 30 GB of weights, and a GPU to encode the 113 tasks in reasonable time;
+    - then `RUN_TRAINING = True`, which trains 11 probes on each task. It takes over an hour, but can resume.
 - **Part 2, causal tracing** on GPT‑2 XL.
 
 Predict before every experiment. In Claude Code, `/notebook Part 2` walks you through a section without giving the answers away.
