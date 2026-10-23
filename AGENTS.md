@@ -148,9 +148,10 @@ Every exercise and proposal run follows the same loop. IDs are `E1`–`E5` for e
     - Exercise 5 to two decimals.
   - Exercise 5 first crashed on a missing pad token; the page and the file are fixed.
 - **References:** P1, P2 and P6 were computed on CPU for this repo. P3–P5 come from the page's replication runs.
+- **On a GPU (2026-10-23, an H200 RunPod pod, fresh clone, torch 2.8 cu128):** `setup.sh` with Gemma finished, and `check_setup.py` reported "Ready", including its GPT‑2 XL GPU test (peak 5.7 GB). The exercise runs were stopped before Exercise 1, because another job claimed the GPU.
 - **Not yet tested:**
-  - a real RunPod GPU pod;
-  - the Gemma download with a participant token;
+  - Exercises 1–5 run unchanged on a GPU (they were checked on CPU);
+  - the Gemma download with a participant's own token;
   - the Claude Code login on a pod;
   - a full `/proposal` run by an agent.
 - **Notebook:** checked only before its path fix. The original ran end to end on CPU on 2026-10-23, and Checkpoint A also ran in a separate dry run. The version with pod paths has not been re-run.

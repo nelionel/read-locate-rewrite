@@ -183,10 +183,10 @@
   }
  ],
  "not_yet_verified": [
-  "a real RunPod GPU pod",
-  "the Gemma download with a participant token",
+  "exercises 1-5 unchanged on a GPU (checked on CPU)",
+  "the Gemma download with a participant's own token",
   "Claude Code login on a pod",
-  "a full /proposal run by an agent"
+  "the notebook after its path fix"
  ],
  "flow": [
   "every team works through notebook/Mech_Interp_Probing_SAEs_Causal_Tracing.ipynb",
@@ -208,5 +208,6 @@
   "huggingface_dataset": "Ionel2023/read-locate-rewrite-replication",
   "fetch": "python tools/get_replication_data.py results|all|notebook",
   "start_with": "CLAIMS_TABLE.md"
- }
+ },
+ "verified_on_gpu": "setup.sh with Gemma and check_setup.py (Ready, GPT-2 XL GPU smoke test) on a fresh clone, H200 RunPod pod, torch 2.8 cu128, 2026-10-23"
 }
