@@ -6,7 +6,7 @@ Chapter 4 (Rewrite) · starts from `exercises/ex4_trace_a_fact.py` and `exercise
 If tracing showed where a fact is stored, a fact's tracing effect at a layer should predict how well an edit at that layer works. Hase et al. (2023) found that it barely does, in GPT‑J. Does that hold for a handful of facts in GPT‑2 XL?
 
 ## Predict
-1. Over 20 facts and 6 layers, how much of the variation in edit success does the tracing effect explain: most, some, or almost none?
+1. Over 20 facts and 6 layers, how much of the variation in edit success does the tracing effect explain: most, some, or almost none? The page answers this for 300 facts; predict whether 20 are enough to see the same result.
 2. How often is the layer with the strongest trace among the best layers to edit? With six layers, chance is 1 in 6, or a little more when layers tie.
 
 ## Do

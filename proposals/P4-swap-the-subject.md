@@ -6,7 +6,8 @@ Chapter 3 (Locate) · starts from `exercises/ex4_trace_a_fact.py` · GPU · budg
 Gaussian noise on the subject's embeddings is an unnatural input: no real prompt looks like that. The alternative swaps in a real subject with the same number of tokens and no noise (symmetric token replacement; Zhang & Nanda, 2024). Does tracing then locate the fact in the same place?
 
 ## Predict
-With a swapped subject, will the MLP effect still peak at the last subject token in the middle layers? Or will it move earlier, or disappear?
+1. With a swapped subject, will the Space Needle's own MLP map look like its noise map? Or will the peak move earlier, or disappear?
+2. The page's table reports the 200-fact answer. Will 20 facts be enough to see it?
 
 ## Do
 1. **One fact.** Take "The Space Needle is in downtown" → "Seattle". Pick three replacement subjects of exactly three tokens that have nothing to do with Seattle; check the count with `model.to_tokens(..., prepend_bos=False)`.
