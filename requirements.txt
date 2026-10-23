@@ -7,3 +7,5 @@ matplotlib==3.10.1
 datasets==2.21.0
 pandas
 pyyaml
+xgboost==2.1.4
+natsort

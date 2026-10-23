@@ -8,6 +8,19 @@ Participants read the workshop page (`site/index.html`, chapters 1–5) and run 
 
 `manifest.json` lists every exercise and proposal: file, device, run time, inputs, where the answer is, and how it was verified. Read it first.
 
+## How the workshop runs
+
+Every team does two things, in this order:
+1. **The notebook.** Teams work through `notebook/Mech_Interp_Probing_SAEs_Causal_Tracing.ipynb`: Part 1 on SAE probing, then Part 2 on causal tracing.
+   - Help the way `/notebook` does: say what each section tests, and ask for a prediction before cells run.
+   - For an "Exercise" cell, let the participant write the code first. Keep `USE_SOLUTIONS = False`, and never paste a reference solution unless they ask.
+   - Checkpoint A runs as soon as setup has finished. Checkpoint B needs `python tools/get_replication_data.py notebook` plus the authors' task files (see README.md, "Replication results on Hugging Face"). If `RAW_ARTIFACTS_READY` is False, say so and move on to Part 2.
+2. **One or two exercises, of the team's choice**, from `exercises/`. Each has a proposal P1–P6 to extend it. Run both with the lab loop below.
+
+**Replication results:** the public Hugging Face dataset `Ionel2023/read-locate-rewrite-replication` holds every claim's test and result, the result files, the code, and Gemma‑2‑9B layer-20 activations, encodings and labels for all 113 tasks.
+- Fetch it with `python tools/get_replication_data.py results|all|notebook`.
+- Use it to answer "what did the replication find for claim X?" (start from `CLAIMS_TABLE.md`), or to rerun probing experiments on any task without the GPU.
+
 ## Which job are you doing?
 
 - **Lab partner:** a participant asks you to run an exercise or implement a proposal. Follow *The lab loop* below.
@@ -17,7 +30,8 @@ Participants read the workshop page (`site/index.html`, chapters 1–5) and run 
 
 | Path | What it is | Edit by hand? |
 |---|---|---|
-| `README.md` | Participant onboarding: RunPod → clone → `setup.sh` → Claude Code | yes |
+| `README.md` | Participant onboarding: RunPod → clone → `setup.sh` → Claude Code, then the session's two steps | yes |
+| `notebook/…ipynb` | The workshop notebook: every team works through it first. It uses `/content` on Colab and the notebook's folder on a pod | yes |
 | `AGENTS.md` | This file: instructions for any coding agent | yes |
 | `CLAUDE.md` | Imports this file, plus Claude Code specifics | yes |
 | `manifest.json` | Machine-readable index of exercises and proposals | yes; keep in sync |
@@ -29,7 +43,8 @@ Participants read the workshop page (`site/index.html`, chapters 1–5) and run 
 | `setup.sh`, `check_setup.py`, `requirements.txt` | Pod setup, its check, and pinned packages | yes |
 | `tools/build_ex1_file.py` | How the Exercise 1 file was made; needs the authors' SAE-Probes repo | **no**: generated |
 | `tools/cpu_smoke_test.sh` | Fresh-environment test on any CPU machine | yes |
-| `.claude/commands/` | The `/exercise` and `/proposal` commands for Claude Code | yes |
+| `tools/get_replication_data.py` | Downloads the Hugging Face replication dataset (`results`, `all`, or `notebook`) | yes |
+| `.claude/commands/` | The `/notebook`, `/exercise` and `/proposal` commands for Claude Code | yes |
 | `work/` | Participants' runs, one folder per ID; git-ignored | runtime only |
 | `third_party/rome/` | The authors' ROME code at commit 0874014, cloned by `setup.sh`; git-ignored | no |
 
@@ -138,4 +153,5 @@ Every exercise and proposal run follows the same loop. IDs are `E1`–`E5` for e
   - the Gemma download with a participant token;
   - the Claude Code login on a pod;
   - a full `/proposal` run by an agent.
+- **Notebook:** checked only before its path fix. The original ran end to end on CPU on 2026-10-23, and Checkpoint A also ran in a separate dry run. The version with pod paths has not been re-run.
 - **Open:** there is no LICENSE file yet.

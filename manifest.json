@@ -187,5 +187,26 @@
   "the Gemma download with a participant token",
   "Claude Code login on a pod",
   "a full /proposal run by an agent"
- ]
+ ],
+ "flow": [
+  "every team works through notebook/Mech_Interp_Probing_SAEs_Causal_Tracing.ipynb",
+  "then each team picks one or two exercises, each with its proposal"
+ ],
+ "notebook": {
+  "file": "notebook/Mech_Interp_Probing_SAEs_Causal_Tracing.ipynb",
+  "parts": [
+   "1 SAE probing (Checkpoint A: released results; Checkpoint B: retrain, needs data)",
+   "2 causal tracing on GPT-2 XL"
+  ],
+  "data_for_checkpoint_B": [
+   "python tools/get_replication_data.py notebook",
+   "the authors' cleaned_data/ task files (not mirrored)"
+  ],
+  "command": "/notebook"
+ },
+ "replication_data": {
+  "huggingface_dataset": "Ionel2023/read-locate-rewrite-replication",
+  "fetch": "python tools/get_replication_data.py results|all|notebook",
+  "start_with": "CLAIMS_TABLE.md"
+ }
 }

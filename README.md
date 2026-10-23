@@ -7,7 +7,7 @@ The hands-on half of a two-hour interpretability workshop. On your own GPU pod y
 
 Claude Code is your lab partner: it runs the exercises and implements the extensions you choose.
 
-The workshop page is the guide. Open [`site/index.html`](site/index.html) in a browser, or the link your instructor sends, and work through its five chapters. This repo holds everything you run.
+**How the session runs:** every team first works through the [notebook](notebook/Mech_Interp_Probing_SAEs_Causal_Tracing.ipynb), then picks one or two of the five exercises. The workshop page ([`site/index.html`](site/index.html), or the link your instructor sends) explains the ideas behind each step. This repo holds everything you run.
 
 The two papers:
 - **ROME.** Meng, Bau, Andonian & Belinkov, *Locating and Editing Factual Associations in GPT*, NeurIPS 2022.
@@ -64,26 +64,29 @@ claude
 ```
 `claude` prints a login link; open it on your laptop. Inside this folder Claude reads [`CLAUDE.md`](CLAUDE.md), so it already knows the workshop, the models and the rules. Run long sessions inside `tmux` so a dropped connection does not stop them.
 
-## 2 · During the session
+## 2 · During the session: the notebook, then one or two exercises
 
-Read the page one chapter at a time. Each chapter lists its deliverables in the page's left rail. When you reach an exercise, run it yourself or ask Claude:
+Every team does the same two steps.
+
+**Step 1 · The notebook (every team, about an hour).** Open [`notebook/Mech_Interp_Probing_SAEs_Causal_Tracing.ipynb`](notebook/Mech_Interp_Probing_SAEs_Causal_Tracing.ipynb) in the pod's JupyterLab (RunPod: **Connect → Jupyter Lab**) and work through it in order.
+- **Part 1, SAE probing.**
+  - Checkpoint A works from the authors' released results, and runs as soon as `setup.sh` has finished.
+  - Checkpoint B retrains the probes and needs data first; see [Replication results](#replication-results-on-hugging-face).
+- **Part 2, causal tracing** on GPT‑2 XL.
+
+Predict before every experiment. In Claude Code, `/notebook Part 2` walks you through a section without giving the answers away.
+
+**Step 2 · One or two exercises (each team picks).** Choose one or two of the five exercises below. Each takes a few minutes to run, and ends with a **proposal**, an extension for Claude to implement.
 
 ```bash
-python exercises/ex4_trace_a_fact.py
+python exercises/ex4_trace_a_fact.py     # run it yourself
 ```
 ```
-/exercise 4
+/exercise 4        (in Claude Code: your prediction first, then the run)
+/proposal P4       (in Claude Code: the extension, in work/P4/)
 ```
 
-Claude asks for your prediction first, runs the exercise, and compares the output with your prediction.
-
-Each exercise ends with a **proposal**: an extension worth an experiment. Ask Claude to implement one:
-```
-/proposal P4
-```
-Claude writes the code in `work/P4/`, runs it within the proposal's time budget, and reports the result next to your prediction.
-
-| Exercise | Chapter | Runs on | Its proposal |
+| Exercise | Chapter of the page | Runs on | Its proposal |
 |---|---|---|---|
 | 1 · Beat the SAE probe | 2 Read | CPU | **P1** How many SAE features close the gap? |
 | 2 · Find the leak | 2 Read | CPU | **P2** How much validation data stops you picking noise? |
@@ -91,19 +94,34 @@ Claude writes the code in `work/P4/`, runs it within the proposal's time budget,
 | 4 · Trace a fact | 3 Locate | GPU | **P4** Corrupt by swapping the subject |
 | 5 · Edit a fact and probe its edges | 4 Rewrite | GPU | **P5** Does a fact's trace predict where editing it works? · **P6** Why did one edit break a run of 1,000? |
 
-[`proposals/README.md`](proposals/README.md) describes all six.
+The workshop page explains the ideas behind every step; read the chapter that matches your exercise. [`proposals/README.md`](proposals/README.md) describes all six proposals.
 
-## Replication results
+**Practical notes**
+- Use two terminals (tmux, or two SSH windows): Claude Code in one, your own runs in the other.
+- To look at a figure (a PNG), open it from JupyterLab's file browser.
+- Stopping the pod resets its container disk. After a restart, rerun `bash setup.sh` and the Claude Code install line. The models and the repo on `/workspace` stay.
 
-Every result behind the page (claim ledgers, results, code, and Gemma‑2‑9B layer-20 activations and labels for all 113 probing tasks) is in the public dataset [Ionel2023/read-locate-rewrite-replication](https://huggingface.co/datasets/Ionel2023/read-locate-rewrite-replication). On a pod:
+## Replication results on Hugging Face
+
+Every result behind the page is in the public dataset [**Ionel2023/read-locate-rewrite-replication**](https://huggingface.co/datasets/Ionel2023/read-locate-rewrite-replication). It holds:
+- the claim ledgers, with every claim of both papers, its test and its result;
+- all result files, and the code that made them;
+- Gemma‑2‑9B layer-20 activations, SAE encodings and labels for all 113 probing tasks.
+
+On a pod:
 ```bash
-huggingface-cli download Ionel2023/read-locate-rewrite-replication --repo-type dataset --local-dir /workspace/replication --include "*.md" "sae/results/*" "rome/results/*"
+python tools/get_replication_data.py results    # ledgers, results, figures, labels (about 2.7 GB) into /workspace/replication
+python tools/get_replication_data.py all        # everything (about 10 GB)
+python tools/get_replication_data.py notebook   # the activations the notebook's Checkpoint B expects, in /workspace/sae_artifacts
 ```
-Drop `--include` to get everything (about 10 GB).
+Start with `CLAIMS_TABLE.md`. The [dataset card](https://huggingface.co/datasets/Ionel2023/read-locate-rewrite-replication) shows how to load one task in a few lines.
+
+Checkpoint B also needs the authors' task files (`cleaned_data/`, a 575 MB zip). The dataset does not mirror them. Download `cleaned_data.zip` once per team from the authors' data release, linked in [JoshEngels/SAE-Probes](https://github.com/JoshEngels/SAE-Probes), and unzip it into `/workspace/sae_artifacts/data/`. The script prints the exact path.
 
 ## What is where
 
 ```
+notebook/            the workshop notebook: every team works through it first
 site/index.html      the workshop page
 AGENTS.md            how any coding agent should work in this repo (CLAUDE.md imports it)
 manifest.json        machine-readable index of the exercises and proposals

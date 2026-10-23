@@ -5,3 +5,5 @@ __pycache__/
 *.pyc
 ex4_mlp_trace.png
 .ipynb_checkpoints/
+notebook/SAE-Probing/
+notebook/workshop_replication/
